@@ -13,7 +13,12 @@ const storage = multer.diskStorage({
     filename: (req, file, callback) => {
         const name = file.originalname.split(' ').join('_');
         const extension = MIME_TYPES[file.mimetype];
-        callback('null', name + Date.now() + '.' + extension);
+
+        /*
+         * Erreur 500 corrigée : remplacement de la chaine 'null'
+         * par null sans apostrophes
+         */
+        callback(null, name + Date.now() + '.' + extension);
     }
 });
 
